@@ -62,6 +62,18 @@ El servidor utiliza el puerto **50051**. Debe estar ejecutándose antes de inici
 
 > **Nota:** Programa educativo con tarjetas ficticias. No realiza pagos reales, no integra pasarelas de pago ni cifra la conexión gRPC.
 
+## Pruebas automáticas
+
+Después de instalar las dependencias y generar los archivos Protobuf:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Las cuatro pruebas comprueban la aprobación, el monto inválido, la tarjeta bloqueada y el rechazo por política. El flujo de GitHub Actions en `.github/workflows/pruebas.yml` instala dependencias, genera los archivos Protobuf y ejecuta estas pruebas cada vez que se suben cambios a `main` o se abre un pull request.
+
+> Los archivos `pagos_pb2.py` y `pagos_pb2_grpc.py` se generan automáticamente y no necesitan mantenerse en Git. El entorno virtual `.venv/` tampoco debe subirse.
+
 ## Trazabilidad
 
 Cada parte se incorporó en un commit distinto:
@@ -71,5 +83,7 @@ Cada parte se incorporó en un commit distinto:
 3. `feat(client)`: pruebas de las cuatro transacciones.
 4. `chore`: dependencias e ignorados del proyecto.
 5. `docs`: instrucciones de instalación, ejecución y pruebas.
+6. `test`: cuatro pruebas automáticas de validación.
+7. `ci`: compilación y pruebas en GitHub Actions.
 
 Consulta el historial en [Commits](https://github.com/mauriciojacomeUPS/ejercicio1_Unario/commits/main).
